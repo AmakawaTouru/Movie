@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amakawa.mapper.UserMapper">
+
+    <select id="findUserByName" parameterType="String" resultType="User">
+        select * from user where user_account = #{name}
+    </select>
+
+    <select id="findUserById" resultType="User">
+        select * from user
+        where user_id = #{id}
+    </select>
+
+    <insert id="addUser" parameterType="String">
+        insert into user(user_account, user_password, user_email, user_portrait)
+        values (#{name},#{pwd},#{email},#{portraint});
+    </insert>
+
+    <select id="findAllUser" resultType="User">
+        select * from user
+    </select>
+
+    <select id="findAllUserByKeyWord" parameterType="String" resultType="User">
+        select * from user where user_account like concat('%',#{keyword,jdbcType=VARCHAR},'%')
+    </select>
+
+    <update id="updateUser" parameterType="User">
+        update user
+        <set>
+            <if test="userAccount != null">
+                user_account = #{userAccount},
+            </if>
+            <if test="userPassword != null">
+                user_password = #{userPassword},
+            </if>
+                user_email = #{userEmail}
+        </set>
+        where user_id = #{userId}
+    </update>
+
+</mapper>

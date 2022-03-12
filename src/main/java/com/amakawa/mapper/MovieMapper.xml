@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amakawa.mapper.MovieMapper">
+
+    <select id="findAllMovie" resultType="Movie">
+        select * from movie where movie_status = #{status};
+    </select>
+
+    <select id="findMovieById" resultType="Movie">
+        select * from movie where movie_id = #{id}
+    </select>
+
+
+    <insert id="addMovie">
+        insert into movie(movie_name, movie_foreign_name, movie_director, movie_actors, movie_types, movie_region, movie_language, movie_release, movie_poster, movie_length, movie_introduction, movie_score, movie_commentNum, movie_boxOffice, movie_status)
+        values (#{mv.movieName}, #{mv.movieForeignName}, #{mv.movieDirector}, #{mv.movieActors}, #{mv.movieTypes}, #{mv.movieRegion}, #{mv.movieLanguage}, #{mv.movieRelease}, #{mv.moviePoster}, #{mv.movieLength}, #{mv.movieIntroduction}, #{mv.movieScore}, #{mv.movieCommentNum}, #{mv.movieBoxOffice}, #{mv.movieStatus});
+    </insert>
+
+
+    <update id="updateMovie">
+        update movie
+        <set>
+            movie_name = #{mv.movieName},
+            movie_foreign_name = #{mv.movieForeignName},
+            movie_director = #{mv.movieDirector},
+            movie_actors = #{mv.movieActors},
+            movie_types = #{mv.movieTypes},
+            movie_region = #{mv.movieRegion},
+            movie_language = #{mv.movieLanguage},
+            movie_release = #{mv.movieRelease},
+            movie_poster = #{mv.moviePoster},
+            movie_length = #{mv.movieLength},
+            movie_introduction = #{mv.movieIntroduction},
+            movie_score = #{mv.movieScore},
+            movie_commentNum = #{mv.movieCommentNum},
+            movie_boxOffice = #{mv.movieBoxOffice},
+            movie_status = #{mv.movieStatus}
+        </set>
+        where movie_id = #{mv.movieId}
+    </update>
+
+    <update id="rmMovie">
+        update movie
+        <set>
+            movie_status = 2
+        </set>
+        where movie_id = #{id}
+    </update>
+
+    <update id="upMovie">
+        update movie
+        <set>
+            movie_status = 1
+        </set>
+        where movie_id = #{id}
+    </update>
+
+    <update id="reUpMovie">
+        update movie
+        <set>
+            movie_status = 0
+        </set>
+        where movie_id = #{id}
+    </update>
+
+    <select id="getMovieCommentNum" resultType="int">
+        select movie_commentNum from movie
+        where movie_id = #{id}
+    </select>
+
+    <select id="getScore" resultType="double">
+        select movie_score from movie
+        where movie_id = #{id}
+    </select>
+
+    <update id="updateScore">
+        update movie
+        <set>
+            movie_score = #{score},
+            movie_commentNum = #{num}
+        </set>
+        where movie_id = #{id}
+    </update>
+
+    <select id="sortMovieByCount" resultType="Movie">
+        select * from movie
+        where movie_status = #{status}
+        order by movie_commentNum DESC
+    </select>
+
+    <select id="sortMovieByDate" resultType="Movie">
+        select * from movie
+        where movie_status = #{status}
+        order by movie_release DESC
+    </select>
+
+    <select id="sortMovieByScore" resultType="Movie">
+        select * from movie
+        where movie_status = #{status}
+        order by movie_score DESC
+    </select>
+
+    <select id="findMoviesLikeType" resultType="Movie">
+        select * from movie
+        where movie.movie_types like concat('%',#{type,jdbcType=VARCHAR},'%') and movie_status = 1
+    </select>
+
+    <select id="sortAllMovie" resultType="Movie">
+        select * from movie where 1 = 1
+        <if test="type != '全部'">
+            and movie_types like concat('%',#{type,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="area != '全部'">
+            and movie_region like concat('%',#{area,jdbcType=VARCHAR},'%')
+        </if>
+        and movie_status = #{status}
+        <if test="order == '热门'">
+            order by movie_commentNum DESC
+        </if>
+        <if test="order == '时间'">
+            order by movie_release DESC
+        </if>
+        <if test="order == '评价'">
+            order by movie_score DESC
+        </if>
+    </select>
+
+
+</mapper>
