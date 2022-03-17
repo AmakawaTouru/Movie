@@ -31,7 +31,7 @@
                     <ul>
                         <li><a href="/">首页</a></li>
                         <li class="active"><a href="/movieList">电影</a></li>
-                        <li><a href="javascript:void(0)">影院</a></li>
+                        <li><a href="/cinemaList">影院</a></li>
                         <li><a href="javascript:void(0)">榜单</a></li>
                     </ul>
                 </div>

@@ -21,6 +21,17 @@
 	/* height: 1414px; */
 	margin-right: 40px;
 }
+
+.main .cinema-grid{
+	margin-top: 10px;
+	float: left;
+	/*width: 738px;*/
+	width: 850px;
+	/* height: 1414px; */
+	margin-right: 40px;
+}
+
+
 .main .main-page{
 	width: 1271px !important;
 	height: 1760px !important;
@@ -68,6 +79,11 @@
 .movie-list{
 	margin-top: 23px;
 }
+
+.cinema-list{
+	margin-top: 23px;
+}
+
 .movie-list li{
 	margin: 0 45px 28px 0px;
 	float: left;
@@ -76,14 +92,31 @@
 	background: #fff;
 	border: 1px solid #efefef;
 }
+
+.cinema-list{
+	margin-top: 23px;
+}
+
 .movie-poster{
 	height: 220px;
 }
+
+.cinema-poster{
+	height: 220px;
+}
+
 .movie-poster img {
 	border-style: none;
 	height: 220px;
 	width: 160px;
 }
+
+.cinema-poster img {
+	border-style: none;
+	height: 220px;
+	width: 160px;
+}
+
 .movie-poster .movie-overlay {
 	color: #fff;
 	position: relative;
@@ -91,9 +124,25 @@
 	left: 0;
 	/*background: green;*/
 }
+
+.cinema-poster .cinema-overlay {
+	color: #fff;
+	position: relative;
+	top: -26px;
+	left: 0;
+	/*background: green;*/
+}
+
+
 .movie-title-padding {
 	margin-right: 35px;
 }
+
+.cinema-title-padding {
+	margin-right: 35px;
+}
+
+
 .movie-title {
 	font-size: 16px;
 	line-height: 22px;
@@ -102,15 +151,41 @@
 	text-overflow: ellipsis;
 	margin: 0 10px;
 }
+
+
+.cinema-title {
+	font-size: 16px;
+	line-height: 22px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0 10px;
+}
+
+
+
 .movie-score {
 	color: #ffb400;
 	float: right;
 	margin-right: 10px;
 }
+
+.cinema-score {
+	color: #ffb400;
+	float: right;
+	margin-right: 10px;
+}
+
 .movie-detail-strong {
 	height: 39px;
 	line-height: 39px;
 }
+
+.cinema-detail-strong {
+	height: 39px;
+	line-height: 39px;
+}
+
 .movie-detail {
 	cursor: pointer;
 	position: relative;
@@ -123,14 +198,45 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.cinema-detail {
+	cursor: pointer;
+	position: relative;
+	top: -19px;
+	width: 100%;
+	height: 41px;
+	line-height: 41px;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
 .movie-detail a:hover{
 	text-decoration: none;
 	background: #ef4238;
 	color: #fff;
 }
+
+
+.cinema-detail a:hover{
+	text-decoration: none;
+	background: #ef4238;
+	color: #fff;
+}
+
+
+
 .movie-sale .active {
 	color: #ef4238;
 }
+
+.cinema-sale .active {
+	color: #ef4238;
+}
+
+
 .movie-sale a {
 	display: block;
 	width: 160px;
@@ -138,10 +244,29 @@
 	color: #999;
 	font-size: 14px;
 }
+
+
+.cinema-sale a {
+	display: block;
+	width: 160px;
+	height: 40px;
+	color: #999;
+	font-size: 14px;
+}
+
+
+
 .movie-item {
 	width: 160px;
 	height: 260px;
 }
+
+
+.cinema-item {
+	width: 160px;
+	height: 260px;
+}
+
 .movie-ver {
 	width: 69px;
 	height: 25px;
@@ -151,12 +276,35 @@
 	font-size: 12px;
 	color: #fff;
 }
+
+
+.cinema-ver {
+	width: 69px;
+	height: 25px;
+	position: relative;
+	top: -280px;
+	left: -2px;
+	font-size: 12px;
+	color: #fff;
+}
+
 .movie-ver i.imax3d {
 	display: block;
 	width: 69px;
 	height: 25px;
 	background-image: url("../images/3Dmax.jpg");
 }
+
+
+.cinema-ver i.imax3d {
+	display: block;
+	width: 69px;
+	height: 25px;
+	background-image: url("../images/3Dmax.jpg");
+}
+
+
+
 .main .panel{
 	margin-top: 28px;
 }
@@ -172,9 +320,29 @@
 	text-align: left;
 	padding-left: 10px;
 }
+
+
+.cinema-wish {
+	width: 158px;
+	height: 41px;
+	font-size: 14px;
+	color: #ffb400;
+	background-color: #fbfbfb;
+	text-align: left;
+	padding-left: 10px;
+}
+
+
+
+
 .movie-presale-sep {
 	border-right: 1px dotted #e5e5e5;
 }
+
+.cinema-presale-sep {
+	border-right: 1px dotted #e5e5e5;
+}
+
 .movie-presale a {
 	cursor: pointer;
 	width: 50%;
@@ -185,10 +353,34 @@
 	font-size: 14px;
 	background: #fff;
 }
+
+.cinema-presale a {
+	cursor: pointer;
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block;
+	vertical-align: top;
+	color: #999;
+	font-size: 14px;
+	background: #fff;
+}
+
+
 .movie-presale a:hover{
 	background: #2d98f3;
 }
+
+
+.cinema-presale a:hover{
+	background: #2d98f3;
+}
+
 .movie-presale{
+	border: 1px solid #eee;
+}
+
+
+.cinema-presale{
 	border: 1px solid #eee;
 }
 

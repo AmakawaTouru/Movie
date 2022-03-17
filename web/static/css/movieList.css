@@ -100,6 +100,12 @@
 	    margin: -1px;
 	}
 
+	.cinema-item {
+		position: relative;
+		border: 1px solid #efefef;
+		margin: -1px;
+	}
+
 	.movie-poster {
 	    background-color: #fcfcfc;
 	    width: 160px;
@@ -107,6 +113,15 @@
 	    overflow: hidden;
 	    position: relative;
 	}
+
+	.cinema-poster {
+		background-color: #fcfcfc;
+		width: 160px;
+		height: 220px;
+		overflow: hidden;
+		position: relative;
+	}
+
 	.channel-action-sale {
     	background-color: #f34d41;
 	}
@@ -124,6 +139,7 @@
 	    font-size: 12px;
 	    vertical-align: top;
 	}
+
 	.movie-ver {
 	    position: absolute;
 	    top: 4px;
@@ -131,6 +147,16 @@
 	    font-size: 12px;
 	    color: #fff;
 	}
+
+	.cinema-ver {
+		position: absolute;
+		top: 4px;
+		left: -2px;
+		font-size: 12px;
+		color: #fff;
+	}
+
+
 	.channel-detail {
 	    width: 160px;
 	    white-space: nowrap;
@@ -159,4 +185,11 @@
 	}
 	.movie-item {
 	    height: 220px;
+	}
+
+	.cinema-list li {
+		margin: 0 28px 40px 0px;
+	}
+	.cinema-item {
+		height: 220px;
 	}

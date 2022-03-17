@@ -8,4 +8,5 @@ public class Cinema {
     private String cinemaName;
     private String cinemaCity;
     private String cinemaAddress;
+    private String cinemaPoster;
 }

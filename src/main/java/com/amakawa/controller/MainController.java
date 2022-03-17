@@ -17,6 +17,21 @@ public class MainController {
         return "movieList";
     }
 
+    @RequestMapping("/cinemaList")
+    public String cinemaList(){
+        return "cinemaList";
+    }
+
+    @RequestMapping("/movieDetail")
+    public String movieDetail() {
+        return "movieDetail";
+    }
+
+    @RequestMapping("/cinemaDetail")
+    public String cinemaDetail() {
+        return "cinemaDetail";
+    }
+
     @RequestMapping("/test")
     public String test(){
         return "test";

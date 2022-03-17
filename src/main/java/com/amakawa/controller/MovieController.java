@@ -65,8 +65,8 @@ public class MovieController {
         JSONObject json = new JSONObject();
         String upFileName =file.getOriginalFilename();
         String UUID = UUIDUtils.getUUID();
-        String localPath = UpLoadUtils.getUpPicLocalPath(upFileName,UUID, request);
-        String dbPath = UpLoadUtils.getUpPicDbPath(upFileName, UUID, request);
+        String localPath = UpLoadUtils.getUpPicLocalPath(upFileName,UUID,"/upload/movies", request);
+        String dbPath = UpLoadUtils.getUpPicDbPath(upFileName, UUID,"../upload/movies/", request);
         Date releaseDate = DateFormatUtils.StringToDate("yyyy-MM-dd", movie.getMovieRelease());
         MovieDto movieDto = new MovieDto(movie);
         movieDto.setMovieRelease(releaseDate);
@@ -100,8 +100,8 @@ public class MovieController {
         if (file != null){
             String upFileName =file.getOriginalFilename();
             String UUID = UUIDUtils.getUUID();
-            localPath = UpLoadUtils.getUpPicLocalPath(upFileName,UUID, request);
-            dbPath = UpLoadUtils.getUpPicDbPath(upFileName, UUID, request);
+            localPath = UpLoadUtils.getUpPicLocalPath(upFileName,UUID,"/upload/movies", request);
+            dbPath = UpLoadUtils.getUpPicDbPath(upFileName, UUID, "../upload/movies/",request);
             movieDto.setMoviePoster(dbPath);
         } else {
             Movie oldMovie = movieService.findMovieById(movie.getMovieId());

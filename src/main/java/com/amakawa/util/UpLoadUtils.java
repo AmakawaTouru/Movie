@@ -6,17 +6,20 @@ public class UpLoadUtils {
 
     public static String getUpPicLocalPath(String upFileName,
                                            String UUID,
+                                           String uploadLocalPath,
                                            HttpServletRequest request){
         String uidName = UUID + upFileName.substring(upFileName.lastIndexOf("."));
-        String path = request.getServletContext().getRealPath("/upload/movies") + "/" + uidName;
+        String path = request.getServletContext().getRealPath(uploadLocalPath) + "/" + uidName;
         return path;
     }
 
+
     public static String getUpPicDbPath(String upFileName,
                                         String UUID,
+                                        String uploadDbPath,
                                         HttpServletRequest request){
         String uidName = UUID + upFileName.substring(upFileName.lastIndexOf("."));
-        String path = "../upload/movies/" + uidName;
+        String path =  uploadDbPath + uidName;
         return path;
     }
 

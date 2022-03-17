@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amakawa.mapper.CinemaMapper">
+
+    <select id="findAllCinemas" resultType="Cinema">
+        select * from cinema
+    </select>
+
+    <select id="findCinemasByCity" resultType="Cinema">
+        select * from cinema
+        where cinema_city = #{city}
+    </select>
+
+    <insert id="addCinema" parameterType="Cinema">
+        insert into cinema(cinema_name, cinema_city, cinema_address,cinema_poster)
+        values (#{c.cinemaName},#{c.cinemaCity},#{c.cinemaAddress},#{c.cinemaPoster});
+    </insert>
+
+    <select id="findCinemaById" resultType="Cinema">
+        select * from cinema
+        where cinema_id = #{id}
+    </select>
+
+    <update id="updateCinema" parameterType="Cinema">
+        update cinema
+        <set>
+            cinema_name = #{c.cinemaName},
+            cinema_city = #{c.cinemaCity},
+            cinema_address = #{c.cinemaAddress},
+            cinema_poster = #{c.cinemaPoster}
+        </set>
+        where cinema_id = #{c.cinemaId}
+    </update>
+
+    <delete id="rmCinema">
+        delete from cinema
+        where cinema_id = #{id}
+    </delete>
+
+
+
+
+</mapper>

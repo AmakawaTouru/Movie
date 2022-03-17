@@ -53,6 +53,7 @@
                 </div>
                 <a class="cardId">用户管理</a>
                 <a class="cardId">电影管理</a>
+                <a class="cardId">电影院管理</a>
                 <a class="cardId">场次管理</a>
                 <a class="cardId">评论管理</a>
                 <a class="cardId">订单管理</a>
@@ -112,8 +113,35 @@
                         </div>
                     </div>
                 </div>
-                <!-- 场次管理 -->
+
+
+                <!-- 电影院管理 -->
                 <div class="three card" style="display: none;">
+                    <div>
+                        <div class="title">电影院管理</div>
+                        <hr/>
+                    </div>
+                    <!-- 点击添加电影的+号即可添加电影 -->
+                    <div class="main-inner">
+                        <div class="addCinema">
+                            <img alt="" src="../../../static/images/addMovie.png" onclick="addCinemaConfirm(-1)">
+                            <span>添加电影院</span>
+                        </div>
+                        <!-- 猜测应该是用来显示已添加的电影 -->
+                        <div class="cinema-grid">
+                            <div class="panel-header">
+                                <span class="panel-title">
+                                </span>
+                            </div>
+                            <div class="panel-content">
+                                <ul class="cinemas-list">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 场次管理 -->
+                <div class="four card" style="display: none;">
                     <div>
                         <div class="title">场次管理</div>
                         <hr/>
@@ -124,7 +152,7 @@
                     </div>
                 </div>
                 <!-- 评论管理 -->
-                <div class="four card" style="display: none;">
+                <div class="five card" style="display: none;">
                     <div>
                         <div class="title">评论管理</div>
                         <hr/>
@@ -135,7 +163,7 @@
                     </div>
                 </div>
                 <!-- 订单管理 -->
-                <div class="five card" style="display: none;">
+                <div class="six card" style="display: none;">
                     <div>
                         <div class="title">订单管理</div>
                         <hr/>
@@ -146,7 +174,7 @@
                     </div>
                 </div>
                 <!-- 票房统计 -->
-                <div class="six card" style="display: none;">
+                <div class="seven card" style="display: none;">
                     <div>
                         <div class="title">票房统计</div>
                         <hr/>
@@ -252,8 +280,9 @@
         var MoviesListHtml;
         var addScheduleContent;
         var AddMoviesHtml;
+        var AddCinemasHtml;
         var ActorNum = 1;
-        var temp, flag;
+        var temp, flag,cinemaFlag;
         var changeticketbtn1 = $('.changeticketBtn');
         var selectmovieName;
         var movieArr = [];
@@ -271,6 +300,7 @@
             initCard(); //选项卡
             initUser(); //用户界面
             initMovies(); //电影界面
+            initCinemas(); //电影院界面
             initSchedule(); //场次界面
             initComment(); //评论界面
             initTicket();  //订单界面
@@ -424,6 +454,48 @@
                     "</a>" +
                 "</div>" +
             "</div>";
+
+
+            // 添加电影院的HTML代码
+            AddCinemasHtml =
+                "<h3 class=\"addusertitle\">电影院信息</h3>" +
+                "<div class=\"textside\">" +
+                    "<div class=\"layui-form-item\">" +
+                        "<label class=\"layui-form-label\">电影院名称</label>" +
+                        "<div class=\"layui-input-block addusertext\">" +
+                            "<input id=\"cinema_name\" type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"CinemaName\" class=\"layui-input\">" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class=\"layui-form-item\">" +
+                        "<label class=\"layui-form-label\">电影院所属城市</label>" +
+                        "<div class=\"layui-input-block addusertext\">" +
+                            "<select id=\"cinema_city\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" class=\"layui-select\" >" +
+                                "<option value =\"广州\">广州</option>"+
+                                "<option value =\"深圳\">深圳</option>"+
+                                "<option value =\"上海\">上海</option>"+
+                                "<option value =\"北京\">北京</option>"+
+                            "</select>" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class=\"layui-form-item temp\">" +
+                        "<label class=\"layui-form-label\">电影院详情地址</label>" +
+                        "<div class=\"layui-input-block addusertext\">" +
+                            "<textarea id=\"cinema_address\" placeholder=\"CinemaAddress\" class=\"layui-textarea\"></textarea>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+                "<div class=\"pictureside\">" +
+                    "<div class=\"layui-upload\">" +
+                        "<p class=\"cinema-picture\">电影院宣传图</p>" +
+                        "<div class=\"layui-upload-list\">" +
+                            "<img class=\"layui-upload-img\" id=\"demo1\">" +
+                            "<p id=\"demoText\"></p>" +
+                        "</div>" +
+                        "<a href=\"javascript:;\" class=\"file\">选择文件" +
+                            "<input type=\"file\" name=\"file\" id=\"file\">" +
+                        "</a>" +
+                    "</div>" +
+                "</div>";
 
             //这里是给添加场次的html代码
             addScheduleContent =
@@ -678,7 +750,7 @@
                             "<div class=\"movie-item\">" +
                                 "<a>" +
                                     "<div class=\"movie-poster\">" +
-                                        "<img src=\""+ obj.data[i].moviePoster +"\" onclick=\"movieDetail("+obj.data[i].movieId+")\">" +
+                                        "<img src=\""+ obj.data[i].moviePoster +"\" onclick=\"movieDetail("+obj.data[i].movieId+")\" >" +
                                         "<div class=\"movie-overlay movie-overlay-bg\">" +
                                             "<div class=\"movie-info\">" +
                                                 "<div class=\"movie-score\"><i class=\"integer\">"+ obj.data[i].movieScore +"</i></div>" +
@@ -771,6 +843,10 @@
         //需要修改，这里是不能这样直接跳转的，这里跳转到电影详细页。
         function movieDetail(movie_id) {
             window.location.href = "/movieDetail?movie_id=" + movie_id;
+        }
+
+        function cinemaDetail(cinema_id) {
+            window.location.href = "/cinemaDetail?cinema_id=" + cinema_id;
         }
 
         //电影添加&修改点击事件
@@ -1124,9 +1200,6 @@
             });
         }
 
-
-
-
         //电影添加演员
         function addActor(){
             var TextSide = $(".textside").find(".temp");
@@ -1176,6 +1249,254 @@
                     );
                 });
             }
+        }
+
+
+        // 初始化电影院管理页面
+        function initCinemas(){
+            var CinemasNum = $(".three").find(".panel-title");
+            var CinemaLi =  $(".three").find(".cinemas-list");
+
+            $.ajax({
+                type:'post',
+                url: "/cinema/findAllCinemas",
+                dataType:'json',
+                data: {},
+                success:function (obj) {
+                    CinemasNum.append("<span class=\"textcolor_red\">电影院（" + obj.data.length + "家）</span>");
+                    //这里遍历的是正在热映的数据
+                    for(var i=0;i<obj.data.length;i++){
+                        CinemasListHtml =
+                            "<li>" +
+                                "<div class=\"cinema-item\">" +
+                                    "<a>" +
+                                        "<div class=\"cinema-poster\">" +
+                                            "<img src=\""+ obj.data[i].cinemaPoster +"\" onclick=\"cinemaDetail("+obj.data[i].cinemaId+")\" >" +
+                                            "<div class=\"cinema-overlay cinema-overlay-bg\">" +
+                                                "<div class=\"cinema-info\">" +
+                                                    "<div class=\"cinema-score\"><i class=\"integer\">0</i></div>" +
+                                                    "<div class=\"cinema-title cinema-title-padding\" title=\"\">"+ obj.data[i].cinemaName +"</div>\"" +
+                                                "</div>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</a>" +
+                                    "<div class=\"cinema-btn\">" +
+                                        "<div class=\"cinemas-detail cinema-detail-strong cinema-sale\">" +
+                                            "<a class=\"active\" onclick=\"addCinemaConfirm("+ obj.data[i].cinemaId +")\" target=\"_blank\" data-act=\"salePlayingCinema-click\" data-val=\"\">修改信息</a>" +
+                                        "</div>" +
+                                        "<div class=\"cinemas-detail cinema-detail-strong cinema-sale\">" +
+                                            "<span id=\"deleteId\" style=\"display:none;\">${u.id}</span>" +
+                                            "<a class=\"active\" onclick=\"rmCinemaConfirm("+ obj.data[i].cinemaId +")\" data-act=\"salePlayingCinema-click\" id=\"delete\">删除影院</a>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                            "</li>";
+                        CinemaLi.append(CinemasListHtml);
+                    }
+                }
+            });
+        }
+
+
+
+        function addCinemaConfirm(cinema_id){
+            var file;
+            var formData = new FormData();
+            var tempurl;
+            //添加电影，id=-1，跳转到添加电影的controller
+            if(cinema_id == -1){
+                tempurl = "/cinema/addCinema";
+                temp = "添加";
+                cinemaFlag = 0;
+            }
+            //修改电影，否则跳转到修改电影的页面
+            else{
+                tempurl = "/cinema/updateCinema";
+                temp = "修改";
+                cinemaFlag = 1;
+            }
+            layui.use(['laypage', 'layer', 'table'], function(){
+                var laypage = layui.laypage;
+                var layer = layui.layer;
+                var table = layui.table
+                //电影添加
+                layer.open({
+                    type: 1
+                    ,title: temp + "电影院" //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '750px;'
+                    ,shade: 0.8
+                    ,offset: clientHeight/20
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确认' + temp, '取消']
+                    ,yes: function(){
+                        var cinema_name = $('#cinema_name').val();
+                        var cinema_city = $('#cinema_city').val();
+                        var cinema_address = $('#cinema_address').val();
+
+                        //如果存在某一项为空时，就弹出警告。
+                        if( (cinema_name == "") ||  (cinema_city == "") || (cinema_address == "")  ){
+                            layer.alert(temp + '信息不能存在空，' + temp + '失败！',{icon: 0,offset: clientHeight/5},
+                                function (){
+                                    layer.close(layer.index);
+                                }
+                            );
+                        } else {
+                            if(cinemaFlag == 0){
+                                if(file == null){
+                                    layer.alert('图片信息不能存在空，' + temp + '失败！',{icon: 0,offset: clientHeight/5},
+                                        function (){
+                                            layer.close(layer.index);
+                                        }
+                                    );
+                                }else{
+                                    formData.append("cinemaName",cinema_name);
+                                    formData.append("cinemaCity",cinema_city);
+                                    formData.append("cinemaAddress",cinema_address);
+                                    formData.append("file",file);
+                                    //异步请求，传输数据为formData
+                                    $.ajax({
+                                        type:'post',
+                                        url: tempurl,
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        success:function (obj) {
+                                            //code=0就说明添加成功了
+                                            if(obj.code == 0){
+                                                layer.alert(temp + '成功！',{icon: 0,offset: clientHeight/5},
+                                                    function (){
+                                                        layer.closeAll();
+                                                        location.reload();
+                                                    }
+                                                );
+                                            }else{
+                                                //否则失败
+                                                layer.alert(temp + '失败！',{icon: 0,offset: clientHeight/5},
+                                                    function (){
+                                                        layer.closeAll();
+                                                    }
+                                                );
+                                            }
+                                        }
+                                    });
+                                }
+                            } else{
+                                //无论file有没有上传，都应该传过去，让后端自己判断。
+                                formData.append("cinemaId",cinema_id);
+                                formData.append("cinemaName",cinema_name);
+                                formData.append("cinemaCity",cinema_city);
+                                formData.append("cinemaAddress",cinema_address);
+                                formData.append("file",file);
+
+                                $.ajax({
+                                    type:'post',
+                                    url: tempurl,
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success:function (obj) {
+                                        //code=0成功
+                                        if(obj.code == 0){
+                                            layer.alert(temp + '成功！',{icon: 0,offset: clientHeight/5},
+                                                function (){
+                                                    layer.closeAll();
+                                                    location.reload();
+                                                }
+                                            );
+                                        }else{
+                                            layer.alert(temp + '失败！',{icon: 0,offset: clientHeight/5},
+                                                function (){
+                                                    layer.closeAll();
+                                                }
+                                            );
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                    ,btnAlign: 'c movie-last'
+                    ,moveType: 0 //拖拽模式，0或者1
+                    ,content: AddCinemasHtml
+                    ,success: function(layero){
+                        if(cinemaFlag == 1){
+                            $.ajax({
+                                type:'post',
+                                url: "/cinema/findCinemaById",
+                                dataType:'json',
+                                data: {
+                                    cinema_id: cinema_id
+                                },
+                                success:function (obj) {
+                                    $('#cinema_name').val(obj.data.cinemaName);
+                                    $('#cinema_city').val(obj.data.cinemaCity);
+                                    $('#cinema_address').val(obj.data.cinemaAddress);
+                                    $('#demo1').attr('src', obj.data.cinemaPoster);
+                                }
+                            });
+                        }
+                        layui.use('upload', function(){
+                            var $ = layui.jquery
+                                ,upload = layui.upload;
+                            //普通图片上传，注意#file指的是上面定义的id为file的input按钮
+                            var uploadInst = upload.render({
+                                elem: '#file',
+                                auto: false,
+                                choose: function (obj) {
+                                    //预读本地文件。
+                                    //index 文件索引
+                                    //file 文件对象
+                                    //result 文件base64编码
+                                    obj.preview(function (index, file, result) {
+                                        //将base64编码放入到#demo1这个DOM对象里面
+                                        $('#demo1').attr('src', result); //图片链接（base64）
+                                    })
+                                    //这一步是最重要的，这一步才赋值给file，让file通过json传到后台。
+                                    file = $('#file')[0].files[0];
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        }
+
+
+
+        //电影院删除点击事件
+        function rmCinemaConfirm(cinema_id){
+            layui.use(['layer'], function(){
+                var layer = layui.layer;
+                layer.alert('确定要对id为“'+ cinema_id + '”的电影院进行删除操作吗？',{icon: 0,offset: clientHeight/5},
+                    function () {
+                        $.ajax({
+                            type:'post',
+                            url: "/cinema/rmCinema",
+                            dataType:'json',
+                            data: {
+                                cinemaId: cinema_id,
+                            },
+                            success:function (date) {
+                                if(date.code == 0){
+                                    layer.alert('删除成功！',{icon: 0,offset: clientHeight/5},
+                                        function (){
+                                            layer.closeAll();
+                                            location.reload();
+                                        }
+                                    );
+                                }else{
+                                    layer.alert('删除失败！',{icon: 0,offset: clientHeight/5},
+                                        function (){
+                                            layer.closeAll();
+                                        }
+                                    );
+                                }
+                            }
+                        });
+                    }
+                );
+            });
         }
 
 
